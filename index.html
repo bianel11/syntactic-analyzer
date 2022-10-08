@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>syntactic analyzer - Bianel</title>
+    <link rel="stylesheet" href="main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+  </head>
+  <body class="animate__animated animate__bounceInUp">
+    <h1>Analizador de lexico y Sintaxis</h1>
+    <main>
+      <div>
+        <textarea name="textbox" id="textbox" cols="30" rows="10">
+const pepe = 1;</textarea
+        >
+        <br />
+        <button id="submmit">Analizar</button>
+        <div class="flex mt-10">
+
+          <table id="table"></table>
+          <div style="margin-left: 10px;">
+            <p>Errores encontrados</p>
+            <table id="table-syntax"></table>
+          </div>
+        </div>
+        <p class="about">Bianel Rodriguez - 1-17-2459</p>
+      </div>
+    </main>
+    <script src="./app.js" type="module"></script>
+  </body>
+</html>
