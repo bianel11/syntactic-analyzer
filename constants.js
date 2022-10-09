@@ -3,6 +3,8 @@ const words = {
     endline: ";",
     parenthesesR: ")",
     parenthesesL: "(",
+    keysR: "}",
+    keysL: "{",
   },
   comparations: ["<", ">", "=", "==", "===", "!=", "!==", ">=", "<="],
   operators: ["+", "-", "*", "/", "%", "++", "--"],

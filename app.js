@@ -84,21 +84,25 @@ function analize() {
         type: "Número",
       });
     } else {
-      const { endline, parenthesesL, parenthesesR } = words.separators;
+      const { endline, parenthesesL, parenthesesR, keysL, keysR } = words.separators;
       let sub = "";
       const types = {
         [endline]: "Fin linea",
         [parenthesesL]: "ParentesisIq",
-        [parenthesesR]: "ParentesDer",
+        [parenthesesR]: "ParentesisDer",
+        [keysL]: "LlaveIzq",
+        [keysR]: "LlaveDer",
       };
 
       if (
         text.includes(endline) ||
         text.includes(parenthesesL) ||
-        text.includes(parenthesesR)
+        text.includes(parenthesesR) || 
+        text.includes(keysL) ||
+        text.includes(keysR)
       ) {
         Array.from(text).forEach((el) => {
-          if ([endline, parenthesesL, parenthesesR].includes(el)) {
+          if ([endline, parenthesesL, parenthesesR, keysL, keysR].includes(el)) {
             if (sub) {
               if (words.numbers.test(text)) {
                 result.push({
@@ -188,19 +192,35 @@ function parse(result) {
             pos: pos + 1,
           });
         }
+      case "Fin linea":
+        if (result[pos - 1]?.type === "Fin linea") {
+          errorList.push({
+            message: "Error de sintaxis ;",
+            pos,
+          });
+        }
+        break;
     }
   });
 
   const parentesisIz = result.filter((el) => el.type === "ParentesisIq");
-  const parentesisDer = result.filter((el) => el.type === "ParentesDer");
+  const parentesisDer = result.filter((el) => el.type === "ParentesisDer");
+  const llaveIz = result.filter((el) => el.type === "LlaveIzq");
+  const llaveDer = result.filter((el) => el.type === "LlaveDer");
 
   if (parentesisIz.length !== parentesisDer.length) {
     errorList.push({
       message: "Se esperaba un parentesis de cierre",
     });
   }
-  console.log({errorList});
 
+  if (llaveIz.length !== llaveDer.length) {
+    errorList.push({
+      message: "Se esperaba una llave de cierre",
+    });
+  }
+
+  document.getElementById('errorCount').innerText = errorList.length;
   if (errorList.length) {
     errorList.forEach((word, i) => {
       const row = document.createElement("tr");
